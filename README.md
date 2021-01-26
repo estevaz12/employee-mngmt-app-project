@@ -6,3 +6,5 @@ Must be ran in the rails server
 For login:
 - Username: alex
 - Password: password
+
+Currently working on deploying this website for easier accessibility.
