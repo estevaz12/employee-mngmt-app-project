@@ -1,0 +1,13 @@
+<% table_heads = %w(Rate Start\ Date End\ Date) %>
+
+<table class="striped highlight">
+  <thead>
+    <th>Pay Grade</th>
+    <% for th in table_heads %>
+      <th class="align_center"><%= th %></th>
+    <% end %>
+  </thead>
+  <% for i in list %>
+    <%= render partial: "#{model_name.pluralize}/table_data", locals: {obj: i}%>
+  <% end %>
+</table>

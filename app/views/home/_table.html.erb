@@ -1,0 +1,13 @@
+<% table_heads = %w(Name Phone Address) %>
+
+<table class="striped">
+  <thead>
+    <% for th in table_heads %>
+      <th><%= th %></th>
+    <% end %>
+  </thead>
+  <% for i in list %>
+    <%= render partial: "#{model_name}/table_data",
+               locals: {obj: i, list: list} %>
+  <% end %>
+</table>

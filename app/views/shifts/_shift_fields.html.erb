@@ -1,0 +1,24 @@
+<% unless current_user.role? :manager %>
+  <%= f.input :assignment_id, collection: get_assignment_options, label: 'Employee', include_blank: true %>
+<% else %>
+  <%= f.input :assignment_id, collection: get_assignment_options_manager, label: 'Employee', include_blank: true %>
+<% end %>
+<%= f.input :date, label_html: { class: 'active' } %>
+<%= f.input :start_time, label_html: { class: 'active' }, input_html: { class: 'timepicker' } %>
+<%= f.input :end_time, label_html: { class: 'active' }, input_html: { class: 'timepicker' } %>
+<%= f.input :notes, label_html: { class: 'active' } %>
+<%= f.input :status, collection: Shift::STATUS_LIST, include_blank: true %>
+<% if current_page?(controller: :shifts, action: :new) %>
+<% elsif @shift.status == 'finished' %>
+  <div class="input-field col s9 checkbox optional shift_jobs">
+    <span class="card-title">Edit Completed Jobs:</span>
+    <% for job in @jobs  %>
+      <div class="col s9">
+        <%= label_tag(job.id, nil, class: 'string optional') do %>
+          <%= check_box 'shift', 'job_ids', {:multiple => true, :id=>job.id}, job.id, nil %>
+          <span class="job_checkbox"><%= job.name %></span>
+        <% end %>
+      </div>
+    <% end  %>
+  </div>
+<% end %>

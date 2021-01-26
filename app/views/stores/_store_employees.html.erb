@@ -1,0 +1,36 @@
+<div class="card">
+  <div class="card-content">
+    <span class="card-title"><b>Manager(s)</b></span>
+    <% if @store.active? %>
+      <table class="highlight">
+        <% for a in @current_managers %>
+          <tr>
+            <td><%= link_to a.employee.proper_name, employee_path(a.employee) %></td>
+          </tr>
+        <% end %>
+      </table><br>
+      <%= will_paginate @current_managers, param_name: "mang_page",
+          previous_label: "Previous&nbsp;", next_label: "&nbsp;Next" %>
+    <% else %>
+      <p>There are no managers assigned at this time.</p>
+    <% end %>
+  </div>
+</div>
+<div class="card">
+  <div class="card-content">
+    <span class="card-title"><b>Current Employees</b></span>
+    <% if @store.active? %>
+      <table class="highlight">
+        <% for a in @current_employees %>
+          <tr>
+            <td><%= link_to a.employee.name, employee_path(a.employee) %></td>
+          </tr>
+        <% end %>
+      </table><br>
+      <%= will_paginate @current_employees, param_name: "emp_page",
+          previous_label: "Previous&nbsp;", next_label: "&nbsp;Next" %>
+    <% else %>
+      <p>There are no employees assigned at this time.</p>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,46 @@
+<% calculator =  PayrollCalculator.new(DateRange.new(@assignment.start_date, @assignment.end_date)) %>
+<% payroll =  calculator.create_payroll_record_for(@assignment.employee) %>
+
+<div class="card">
+  <div class="card-content">
+    <h4>Assignment for <%= link_to @assignment.employee.proper_name,
+                          employee_path(@assignment.employee) %></h4>
+    <br />
+
+    <b>Dates&nbsp;&nbsp;</b><br>
+        <p><% if @assignment.end_date.nil? %>
+          since
+        <% end %>
+        <%= @assignment.start_date.strftime("%-m/%-d/%y") %>
+        <% if !@assignment.end_date.nil? %>
+          &nbsp;-&nbsp;<%= @assignment.end_date.strftime("%-m/%-d/%y") %>
+        <% end %></p>
+      <br>
+
+    <b>Store&nbsp;&nbsp;</b><br>
+      <% unless current_user.role? :employee %>
+        <%= link_to @assignment.store.name, store_path(@assignment.store) %>
+      <% else %>
+        <%= @assignment.store.name %>
+      <% end %>
+      <br><br>
+
+    <% if (current_user.role? :admin) || current_user.id == @assignment.employee.id %>
+      <b>Pay Grade&nbsp;&nbsp;</b><br>
+        <%= payroll.pay_grade %>
+        <br /><br />
+
+      <b>Pay Rate&nbsp;&nbsp;</b><br>
+        <%= number_to_currency(payroll.pay_rate) %>
+        <br /><br />
+
+      <b>Hours Worked&nbsp;&nbsp;</b><br>
+        <%= payroll.hours %>
+        <br /><br />
+
+      <b>Pay Earned To Date&nbsp;&nbsp;</b><br>
+        <%= number_to_currency(payroll.pay_earned) %>
+        <br /><br>
+      <% end %>
+  </div>
+</div>

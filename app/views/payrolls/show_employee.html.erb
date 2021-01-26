@@ -1,0 +1,81 @@
+<div class="row">
+  <div class="col s8">
+    <div class="card">
+      <div class="card-content">
+        <h4>Pay Report for <%= link_to @employee.proper_name,
+                              employee_path(@employee) %></h4>
+        <br />
+
+        <b>Social Security Number&nbsp;&nbsp;</b><br>
+          <%= number_to_ssn(@employee.ssn) %>
+          <br /><br />
+
+        <b>Dates&nbsp;&nbsp;</b><br>
+          <%= @date_range.start_date.strftime("%-m/%-d/%y") %>
+          &nbsp;-&nbsp;
+          <%= @date_range.end_date.strftime("%-m/%-d/%y") %>
+          <br><br>
+
+        <b>Pay Grade&nbsp;&nbsp;</b><br>
+          <% if !@payroll_report.pay_grade.nil? %>
+            <%= @payroll_report.pay_grade %>
+          <% else %>
+            n/a
+          <% end %>
+          <br><br>
+
+        <b>Pay Rate&nbsp;&nbsp;</b><br>
+          <% if !@payroll_report.pay_rate.nil? %>
+            <%= number_to_currency(@payroll_report.pay_rate) %>
+          <% else %>
+            n/a
+          <% end %>
+          <br><br>
+
+        <b>Hours Worked&nbsp;&nbsp;</b><br>
+          <%= @payroll_report.hours %>
+          <br><br>
+
+        <b>Total Pay&nbsp;&nbsp;</b><br>
+          <%= number_to_currency(@payroll_report.pay_earned) %>
+          <br><br>
+      </div>
+    </div>
+  </div>
+  <div class="col s4">
+    <div class="card">
+      <div class="card-content">
+        <span class="card-title"><b>Worked Shifts</b></span>
+        <% if !@worked_shifts.empty? %>
+          <table class="striped highlight">
+            <thead>
+              <th>Date</th>
+              <th>Start</th>
+              <th>End</th>
+              <th class="align_center">Duration</th>
+            </thead>
+            <% for shift in @worked_shifts %>
+              <tr>
+                <td><%= link_to shift.date.strftime("%-m/%-d/%y"), shift_path(shift) %></td>
+                <td><%= shift.start_time.strftime("%H:%M") %></td>
+                <td><%= shift.end_time.strftime("%H:%M") %></td>
+                <td class="align_center"><%= shift.duration %></td>
+              </tr>
+            <% end %>
+          </table><br>
+          <%= will_paginate @worked_shifts, param_name: "page",
+              previous_label: "Previous&nbsp;", next_label: "&nbsp;Next" %>
+        <% else %>
+          <p>This employee did not work any shifts during these dates.</p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+<% if current_user.role? :admin %>
+  <div class="row">
+    <div class="col s12">
+      <%= link_to 'Generate New Report', payrolls_path, class: 'waves-effect waves-light btn' %>
+    </div>
+  </div>
+<% end %>

@@ -1,0 +1,46 @@
+<tr>
+  <% if obj.end_date.nil? %>
+    <td><%= link_to obj.start_date.strftime("%-m/%-d/%y"), assignment_path(obj) %></td>
+  <% else %>
+    <td><%= link_to assignment_path(obj) do %>
+      <%= obj.start_date.strftime("%-m/%-d/%y") %>&nbsp;-&nbsp;<%= obj.end_date.strftime("%-m/%-d/%y") %>
+    <% end %></td>
+  <% end %>
+  <td><%= link_to "#{obj.employee.name}", employee_path(obj.employee) %></td>
+  <% unless current_user.role? :employee %>
+    <td><%= link_to "#{obj.store.name}", store_path(obj.store) %></td>
+  <% else %>
+    <td><%= obj.store.name %></td>
+  <% end %>
+  <% unless current_user.role? :employee %>
+    <td class="align_center">
+      <% if obj.end_date.nil? && obj.employee.role != 'admin' %>
+        <%= link_to new_shift_path(assignment_id: obj.id) do %>
+          <i class="material-icons">schedule</i>
+        <% end %>
+      <% end %>
+      <% if can? :edit, Assignment %>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <%= link_to edit_assignment_path(obj) do %>
+            <i class="material-icons">edit</i>
+        <% end %>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+      <% end %>
+      <% if can? :terminate, Assignment %>
+        <% if obj.end_date.nil? %>
+          <%= link_to(terminate_assignment_path(obj), method: :patch,
+                      data: { confirm: 'Are you sure you wish to terminate this assignment?' }) do %>
+              <i class="material-icons">stop</i>
+          <% end %>
+          &nbsp;&nbsp;&nbsp;&nbsp;
+        <% end %>
+      <% end %>
+      <% if can? :destroy, Assignment %>
+        <%= link_to(assignment_path(obj), method: :delete,
+                    data: { confirm: 'Are you sure you wish to delete this assignment?' }) do %>
+            <i class="material-icons" id="destroy">delete</i>
+        <% end %>
+      <% end %>
+    </td>
+  <% end %>
+</tr>

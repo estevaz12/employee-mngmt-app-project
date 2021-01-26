@@ -1,0 +1,42 @@
+<div class="card">
+  <div class="card-content">
+    <span class="card-title"><b>Upcoming Shifts</b></span>
+    <% if !@upcoming_shifts.empty? %>
+      <table class="striped highlight">
+        <thead>
+          <th>Date</th>
+          <th>Start</th>
+          <th>End</th>
+          <th class="align_center">Duration</th>
+          <% if can? :manage, Shift %>
+            <th class="align_center">Options</th>
+          <% end %>
+        </thead>
+        <% for shift in @upcoming_shifts %>
+          <tr>
+            <td><%= link_to shift.date.strftime("%-m/%-d/%y"), shift_path(shift) %></td>
+            <td><%= shift.start_time.strftime("%H:%M") %></td>
+            <td><%= shift.end_time.strftime("%H:%M") %></td>
+            <td class="align_center"><%= shift.duration %></td>
+            <% if (can? :manage, Shift) %>
+              <td class="align_center">
+                <%= link_to edit_shift_path(shift) do %>
+                    <i class="material-icons">edit</i>
+                <% end %>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <%= link_to(shift_path(shift), method: :delete,
+                            data: { confirm: 'Are you sure you wish to delete this shift?' }) do %>
+                    <i class="material-icons" id="destroy">delete</i>
+                <% end %>
+              </td>
+            <% end %>
+          </tr>
+        <% end %>
+      </table><br>
+      <%= will_paginate @upcoming_shifts, param_name: "upcoming_page",
+          previous_label: "Previous&nbsp;", next_label: "&nbsp;Next" %>
+    <% else %>
+      <p>This employee has no upcoming shifts at this time.</p>
+    <% end %>
+  </div>
+</div>

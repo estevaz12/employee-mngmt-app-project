@@ -1,0 +1,32 @@
+<% if @shift.status == 'finished' %>
+  <div class="card">
+    <div class="card-content">
+      <span class="card-title">Edit Completed Jobs</span>
+      <%= simple_form_for(@shift) do |f| %>
+        <%= hidden_field_tag "shift[job_ids][]", nil %>
+        <%= f.error_notification %>
+        <div class="row">
+          <div class="form-inputs">
+            <div class="input-field col checkbox optional shift_jobs">
+            <% for job in @jobs  %>
+              <div class="col s9">
+                <%= label_tag(job.id, nil, class: 'string optional') do %>
+                  <%= check_box 'shift', 'job_ids', {:multiple => true, :id=>job.id}, job.id, nil %>
+                  <span class="job_checkbox"><%= job.name %></span>
+                <% end %>
+              </div>
+            <% end %>
+            </div>
+          </div>
+        </div>
+        <div class="row" id="shift_show_side">
+          <div class="form-actions col">
+            <%= f.button :submit, 'Update Jobs' %>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <%= link_to 'Back to home', home_manager_path(@shift) %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>

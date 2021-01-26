@@ -1,0 +1,9 @@
+<%= f.input :first_name, label_html: { class: 'active' } %>
+<%= f.input :last_name, label_html: { class: 'active' } %>
+<%= f.input :ssn, label_html: { class: 'active' } %>
+<%= f.input :date_of_birth, label_html: { class: 'active' } %>
+<%= f.input :phone, label_html: { class: 'active' } %>
+<% if current_user.role? :admin %>
+  <%= f.input :role, collection: Employee::ROLES_LIST, include_blank: true %>
+<% end %>
+<%= f.input :active %>

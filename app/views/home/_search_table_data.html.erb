@@ -1,0 +1,16 @@
+<tr>
+  <td><%= link_to "#{obj.last_name}, #{obj.first_name}", employee_path(obj) %>
+      &nbsp;&nbsp;&nbsp;&nbsp;
+      <% if !obj.over_18? %>
+        <i class="material-icons under_age">error_outline</i>
+      <% end %>
+  </td>
+  <td><%= number_to_phone obj.phone %></td>
+  <% if obj.current_assignment.nil? %>
+    <td>n/a</td>
+  <% else %>
+    <td><%= link_to "#{obj.current_assignment.store.name}", store_path(obj.current_assignment.store) %></td>
+  <% end %>
+  <td><%= "#{obj.role.capitalize}" %></td>
+  <td><%= obj.active ? 'Yes' : 'No' %></td>
+</tr>

@@ -1,0 +1,29 @@
+<div class="card">
+  <div class="card-content">
+    <span class="card-title"><b>Past Shifts</b></span>
+    <% if !@past_shifts.empty? %>
+      <table class="striped highlight">
+        <thead>
+          <th>Date</th>
+          <th>Start</th>
+          <th>End</th>
+          <th class="align_center">Duration (hours)</th>
+          <th class="align_center">Jobs Done</th>
+        </thead>
+        <% for shift in @past_shifts %>
+          <tr>
+            <td><%= link_to shift.date.strftime("%-m/%-d/%y"), shift_path(shift) %></td>
+            <td><%= shift.start_time.strftime("%H:%M") %></td>
+            <td><%= shift.end_time.strftime("%H:%M") %></td>
+            <td class="align_center"><%= shift.duration %></td>
+            <td class="align_center"><%= shift.jobs.count %></td>
+          </tr>
+        <% end %>
+      </table><br>
+      <%= will_paginate @past_shifts, param_name: "past_page",
+          previous_label: "Previous&nbsp;", next_label: "&nbsp;Next" %>
+    <% else %>
+      <p>This employee has no past shifts at this time.</p>
+    <% end %>
+  </div>
+</div>

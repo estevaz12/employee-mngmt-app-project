@@ -1,0 +1,15 @@
+<% if !obj.end_date.nil? %>
+  <tr>
+    <td><%= obj.pay_grade.level %></td>
+    <td class="align_center"><%= number_to_currency(obj.rate) %></td>
+    <td class="align_center"><%= obj.start_date.strftime("%-m/%-d/%y") %></td>
+    <td class="align_center"><%= obj.end_date.strftime("%-m/%-d/%y") %></td>
+  </tr>
+<% else %>
+  <tr>
+    <td><b><%= obj.pay_grade.level %></b></td>
+    <td class="align_center"><b><%= number_to_currency(obj.rate) %></b></td>
+    <td class="align_center"><b><%= obj.start_date.strftime("%-m/%-d/%y") %></b></td>
+    <td class="align_center"><b>n/a</b></td>
+  </tr>
+<% end %>

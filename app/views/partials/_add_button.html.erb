@@ -1,0 +1,22 @@
+<% if model_name == 'pay_grade' %>
+  <% check = can? :create, PayGrade %>
+<% elsif model_name == 'pay_grade_rate' %>
+  <% check = can? :create, PayGradeRate %>
+<% else %>
+  <% check = can? :create, eval(model_name.capitalize) %>
+<% end %>
+
+<% if check %>
+  <% if current_page?(action: :index) %>
+    <% if model_name == 'pay_grade_rate' %>
+      <%= link_to "Add #{'pay_rate'.gsub('_', ' ').capitalize}", eval("new_#{model_name}_path"),
+                  class: 'waves-effect waves-light btn', id: 'index_add' %>
+    <% else %>
+      <%= link_to "Add #{model_name.gsub('_', ' ').capitalize}", eval("new_#{model_name}_path"),
+                  class: 'waves-effect waves-light btn', id: 'index_add' %>
+    <% end %>
+  <% else %>
+    <%= link_to "Add #{model_name.gsub('_', ' ').capitalize}", eval("new_#{model_name}_path"),
+                class: 'waves-effect waves-light btn' %>
+  <% end %>
+<% end %>

@@ -1,0 +1,102 @@
+<% if !@previous_assignments.empty? %>
+  <% start_date = @previous_assignments.last.start_date %>
+<% elsif !@current_assignment.nil? %>
+  <% start_date = @current_assignment.start_date %>
+<% else %>
+  <% start_date = Date.current %>
+<% end %>
+
+<% if @current_assignment.nil? && !@previous_assignments.empty? %>
+  <% end_date = @previous_assignments.first.end_date %>
+<% else %>
+  <% end_date = nil %>
+<% end %>
+
+<% if (current_user.role? :admin) || current_user.id == @employee.id %>
+  <% calculator =  PayrollCalculator.new(DateRange.new(start_date, end_date)) %>
+  <% payroll =  calculator.create_payroll_record_for(@employee) %>
+<% end %>
+
+<div class="card">
+  <div class="card-content">
+    <h4><%= best_in_place @employee, :first_name, as: :input %>
+        <%= best_in_place @employee, :last_name, as: :input %></h4><br />
+
+    <b><%= @employee.role.capitalize %></b><br><br>
+
+    <b>Username&nbsp;&nbsp;</b><br>
+      <%= best_in_place @employee, :username, as: :input %>
+      <br /><br />
+
+    <b>Phone&nbsp;&nbsp;</b><br>
+      <%= best_in_place @employee, :phone, as: :input, display_with: :number_to_phone %>
+      <br /><br />
+
+    <b>Social Security Number&nbsp;&nbsp;</b><br>
+      <%= number_to_ssn(@employee.ssn) %>
+      <br /><br />
+
+    <b>Age&nbsp;&nbsp;</b>
+      <% if !@employee.over_18? %>
+        <i class="material-icons under_age" id="show">error_outline</i>
+      <% end %>
+      <br>
+      <%= @employee.age %>
+      <br /><br />
+
+    <b>Date of Birth&nbsp;&nbsp;</b><br>
+      <%= @employee.date_of_birth.strftime("%b %-d, %Y") %>
+      <br /><br />
+
+    <% if @employee.active %>
+      <b>Active with AMC</b>
+    <% else %>
+      <b>Inactive with AMC</b>
+    <% end %>
+    <br><br>
+
+    <% if !@previous_assignments.empty? %>
+      <b>Dates&nbsp;&nbsp;</b><br>
+        <p><%= @previous_assignments.last.start_date.strftime("%-m/%-d/%y") %>&nbsp;-
+          <% if !@current_assignment.nil? %>
+            <%= @current_assignment.start_date.strftime("%-m/%-d/%y") %>
+          <% else %>
+            <%= @previous_assignments.first.end_date.strftime("%-m/%-d/%y") %>
+          <% end %></p>
+        <br>
+    <% end %>
+
+    <% if @employee.active %>
+      <b>Current Assignment&nbsp;&nbsp;</b><br>
+        <% if !@current_assignment.nil? %>
+          <%= link_to @current_assignment.store.name, store_path(@current_assignment.store) %>
+          <br>
+          <p>since <%= link_to @current_assignment.start_date.strftime("%b %-d, %Y"), assignment_path(@current_assignment) %></p>
+          <% if (current_user.role? :admin) || current_user.id == @employee.id %>
+            <br>
+            <b>Current Pay Grade&nbsp;&nbsp;</b><br>
+              <%= payroll.pay_grade %>
+              <br /><br />
+
+            <b>Current Pay Rate&nbsp;&nbsp;</b><br>
+              <%= number_to_currency(payroll.pay_rate) %>
+              <br /><br />
+
+            <b>Hours Worked&nbsp;&nbsp;</b><br>
+              <%= payroll.hours %>
+              <br /><br />
+
+            <b>Total Missed Shifts&nbsp;&nbsp;</b><br>
+              <%= Shift.for_employee(@employee).past.pending.count %>
+              <br /><br />
+
+            <b>Pay Earned To Date&nbsp;&nbsp;</b><br>
+              <%= number_to_currency(payroll.pay_earned) %>
+              <br /><br>
+          <% end %>
+        <% else %>
+          <p>n/a</p><br>
+        <% end %>
+      <% end %>
+  </div>
+</div>

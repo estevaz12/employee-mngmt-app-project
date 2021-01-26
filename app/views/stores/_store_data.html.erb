@@ -1,0 +1,45 @@
+<div class="card">
+  <div class="card-content">
+    <h4><%= best_in_place @store, :name, as: :input %> Store</h4><br>
+
+    <b>Phone&nbsp;&nbsp;</b><br>
+      <%= best_in_place @store, :phone, as: :input, display_with: :number_to_phone %>
+      <br /><br />
+
+    <b>Address&nbsp;&nbsp;</b><br>
+      <%= best_in_place @store, :street, as: :input %><br>
+      <%= best_in_place @store, :city, as: :input %>,
+      <%= best_in_place @store, :state, as: :input %>
+      <%= best_in_place @store, :zip, as: :input %>
+      <br><br>
+
+      <% if @store.active %>
+        <b>Active&nbsp;&nbsp;</b>
+        <br>
+        Yes
+        <br><br>
+
+        <b>Current Assignments&nbsp;&nbsp;</b><br>
+          <%= @store.assignments.current.count %>
+          <br /><br />
+
+        <% if current_user.role? :admin %>
+          <b>Payroll To Date&nbsp;&nbsp;</b><br>
+            <%= number_to_currency(payroll(@store, 'month')) %>
+            <br /><br />
+        <% end %>
+
+        <b>Missed Shifts&nbsp;&nbsp;</b><br>
+          <%= missed_shifts(@store) %>%
+          <br><br>
+
+        <b>Under Age Employees&nbsp;&nbsp;</b><br>
+          <%= under_aged(@store) %>
+      <% else %>
+        <b>Active</b>
+        <br>
+        No
+      <% end %>
+      <br><br>
+  </div>
+</div>

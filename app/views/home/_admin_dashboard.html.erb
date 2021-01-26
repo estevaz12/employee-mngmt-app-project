@@ -1,0 +1,189 @@
+<h2 class="dashboard">Welcome, <%= Employee.find(current_user.id).proper_name %></h2>
+<br>
+<div class="row">
+  <div class="col s3">
+    <%= link_to payrolls_path do %>
+      <div class="card">
+        <div class="card-content dashboard">
+          <i class="medium material-icons col s6 offset-s3 center-align">attach_money</i>
+          <span class="card-title center-align">Payroll</span>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <div class="col s3">
+    <%= link_to stores_path do %>
+      <div class="card">
+        <div class="card-content dashboard">
+          <i class="medium material-icons col s6 offset-s3 center-align">store</i>
+          <span class="card-title center-align">Stores</span>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <div class="col s3">
+    <%= link_to employees_path do %>
+      <div class="card">
+        <div class="card-content dashboard">
+          <i class="medium material-icons col s6 offset-s3 center-align">people</i>
+          <span class="card-title center-align">Employees</span>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <div class="col s3">
+    <%= link_to assignments_path do %>
+      <div class="card">
+        <div class="card-content dashboard">
+          <i class="medium material-icons col s6 offset-s3 center-align">assignment_ind</i>
+          <span class="card-title center-align">Assignments</span>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+<br><br>
+<div class="row">
+  <div class="col s6">
+    <div class="card">
+      <div class="card-content">
+        <span class="card-title">Generate Payroll Report for Store</span>
+
+        <%= form_with(url: :store_payroll, method: 'get', local: true) do %>
+          <div class="row">
+            <div class="form-inputs">
+              <div class="input-field col s9">
+                <%= select_tag "store_id", options_from_collection_for_select(Store.all.alphabetical, 'id', 'name'), include_blank: true %>
+                <%= label_tag :store, "Store" %>
+              </div>
+              <div class="col s12">
+                <span>Generate for the past</span>
+              </div>
+              <div class="input-field col s2">
+                <%= number_field_tag "quantity", 2, in: 1..31, class: 'center-align' %>
+              </div>
+              <div class="input-field col s7">
+                <%= select_tag 'date_range', options_for_select(PayrollsHelper::DATE_RANGES, 'weeks') %>
+              </div>
+            </div>
+            <div class="form-actions col s9">
+              <%= submit_tag 'Generate Payroll Report', class: 'btn inside_form' %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-content">
+        <span class="card-title">Add a New Assignment</span>
+        <%= form_with(url: :new_assignment, method: 'get', local: true) do %>
+          <div class="row">
+            <div class="form-inputs">
+              <div class="input-field col s9">
+                <%= select_tag "employee_id", options_from_collection_for_select(Employee.active.alphabetical, 'id', 'name'), include_blank: true %>
+                <%= label_tag :employee, "Employee" %>
+              </div>
+              <div class="input-field col s9">
+                <%= select_tag "store_id", options_from_collection_for_select(Store.active.alphabetical, 'id', 'name'), include_blank: true %>
+                <%= label_tag :store, "Store" %>
+              </div>
+              <div class="input-field col s9">
+                <%= select_tag "pay_grade_id", options_from_collection_for_select(PayGrade.active.alphabetical, 'id', 'level'), include_blank: true %>
+                <%= label_tag :pay_grade, "Pay Grade" %>
+              </div>
+            </div>
+            <div class="form-actions col s9">
+              <%= submit_tag 'Add Assignment', class: 'btn inside_form' %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-content">
+        <span class="card-title">Add a New Pay Rate</span>
+        <%= form_with(url: :new_pay_grade_rate, method: 'get', local: true) do %>
+          <div class="row">
+            <div class="form-inputs">
+              <div class="input-field col s4">
+                <%= select_tag "pay_grade_id", options_from_collection_for_select(PayGrade.active.alphabetical, 'id', 'level'), include_blank: true %>
+                <%= label_tag :pay_grade, "Pay Grade" %>
+              </div>
+            </div>
+            <div class="col s1"></div>
+            <div class="form-actions col s4">
+              <%= submit_tag 'Add Pay Rate', class: 'btn inside_form' %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="col s6">
+    <div class="card">
+      <div class="card-content">
+        <span class="card-title">Search for an Employee</span>
+        <div class="row">
+          <div class="col s9">
+            <%= render partial: 'partials/search_bar' %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-content">
+        <span class="card-title">Add a New Employee</span>
+        <%= form_with(url: :new_employee, method: 'get', local: true) do %>
+          <div class="row">
+            <div class="form-inputs">
+              <div class="input-field col s4">
+                <%= text_field_tag 'first_name' %>
+                <%= label_tag :first_name, 'First name' %>
+              </div>
+              <div class="col s1"></div>
+              <div class="input-field col s4">
+                <%= text_field_tag 'last_name' %>
+                <%= label_tag :last_name, 'Last name' %>
+              </div>
+              <div class="input-field col s4">
+                <%= select_tag "role", options_for_select(Employee::ROLES_LIST, 'employee'), include_blank: true %>
+                <%= label_tag :role, "Role" %>
+              </div>
+            </div>
+            <div class="form-actions col s5 offset-s1">
+              <%= submit_tag 'Add Employee', class: 'btn inside_form' %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    <div class="card">
+      <div class="card-content">
+        <span class="card-title">Store Statistics</span>
+        <% table_heads = %w(Current\ Assignments Under\ Aged Payroll\ (for\ past\ 2\ weeks) Missed\ Shifts) %>
+        <table class="striped highlight">
+          <thead>
+            <th>Name</th>
+            <% for th in table_heads %>
+              <th class="align_center"><%= th %></th>
+            <% end %>
+          </thead>
+          <% for s in @stores %>
+            <tr>
+              <td><%= link_to "#{s.name}", store_path(s) %></td>
+              <td class="align_center"><%= s.assignments.current.count %></td>
+              <td class="align_center">
+                <%= under_aged(s) %>
+              </td>
+              <td class="align_center"><%= number_to_currency(payroll(s, 'two_week')) %></td>
+              <td class="align_center">
+                <%= missed_shifts(s) %>%
+              </td>
+            </tr>
+          <% end %>
+        </table><br>
+        <%= will_paginate @stores, previous_label: "Previous&nbsp;", next_label: "&nbsp;Next" %>
+      </div>
+    </div>
+  </div>
+</div>

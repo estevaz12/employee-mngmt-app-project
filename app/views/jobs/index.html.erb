@@ -1,0 +1,26 @@
+<div class="row">
+  <div class="col s8">
+    <ul class="tabs">
+      <li class="tab col s5"><a class="active" href="#active">Active Jobs</a></li>
+      <li class="tab col s5"><a href="#inactive">Inactive Jobs</a></li>
+    </ul>
+    <div id="active">
+      <%= render partial: "partials/index_structure", locals: {model_name: "job",
+                                                               object: @job,
+                                                               title: "Active Jobs",
+                                                               list: @active_jobs,
+                                                               list_name: "active jobs",
+                                                               param: 'active_page',
+                                                               button: true} %>
+    </div>
+    <div id="inactive">
+      <%= render partial: "partials/index_structure", locals: {model_name: "job",
+                                                               object: @job,
+                                                               title: "Inactive Jobs",
+                                                               list: @inactive_jobs,
+                                                               list_name: "inactive jobs",
+                                                               param: 'inactive_page',
+                                                               button: true} %>
+    </div>
+  </div>
+</div>

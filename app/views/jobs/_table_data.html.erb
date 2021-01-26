@@ -1,0 +1,15 @@
+<tr>
+  <td><%= link_to obj.name, job_path(obj) %></td>
+  <% if can? :manage, Job %>
+    <td class="align_center">
+      <%= link_to edit_job_path(obj) do %>
+          <i class="material-icons">edit</i>
+      <% end %>
+      &nbsp;&nbsp;&nbsp;&nbsp;
+      <%= link_to(job_path(obj), method: :delete,
+                  data: { confirm: 'Are you sure you wish to delete this job?' }) do %>
+          <i class="material-icons" id="destroy">delete</i>
+      <% end %>
+    </td>
+  <% end %>
+</tr>

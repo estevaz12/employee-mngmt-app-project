@@ -1,0 +1,13 @@
+<nav id="nav">
+  <div class="container">
+    <ul class="left hide-on-med-and-down">
+      <li><%= link_to 'Account', employee_path(session[:user_id]) %></li>
+      <li><%= link_to 'Shifts', shifts_path %></li>
+      <li><%= link_to 'Pay', show_employee_payroll_path(current_user.id) %></li>
+      <li><%= link_to 'Assignments', assignments_path %></li>
+    </ul>
+    <ul class="right hide-on-med-and-down">
+      <li><%= link_to 'Log out', logout_path %></li>
+    </ul>
+  </div>
+</nav>

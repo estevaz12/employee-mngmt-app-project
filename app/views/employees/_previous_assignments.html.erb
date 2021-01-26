@@ -1,0 +1,35 @@
+  <div class="card">
+    <div class="card-content">
+      <span class="card-title"><b>Previous Assignments</b></span>
+      <% if !@previous_assignments.empty? %>
+        <table class="striped highlight">
+          <thead>
+            <th>Store</th>
+            <th>Start</th>
+            <th>End</th>
+          </thead>
+          <% for assignment in @previous_assignments %>
+            <tr>
+              <% if current_user.role? :admin || current_user.id == assignment.employee_id %>
+                <% if current_user.role? :admin %>
+                  <td><%= link_to assignment.store.name, store_path(assignment.store) %></td>
+                <% else %>
+                  <td><%= assignment.store.name %></td>
+                <% end %>
+                <td><%= link_to assignment.start_date.strftime("%-m/%-d/%y"), assignment_path(assignment) %></td>
+                <td><%= link_to assignment.end_date.strftime("%-m/%-d/%y"), assignment_path(assignment) %></td>
+              <% else %>
+                <td><%= assignment.store.name %></td>
+                <td><%= assignment.start_date.strftime("%-m/%-d/%y") %></td>
+                <td><%= assignment.end_date.strftime("%-m/%-d/%y") %></td>
+              <% end %>
+            </tr>
+          <% end %>
+        </table><br>
+        <%= will_paginate @previous_assignments, param_name: "assgn_page",
+            previous_label: "Previous&nbsp;", next_label: "&nbsp;Next" %>
+      <% else %>
+        <p>This employee has no previous assignments at this time.</p>
+      <% end %>
+    </div>
+  </div>

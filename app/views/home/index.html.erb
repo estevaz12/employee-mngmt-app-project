@@ -1,0 +1,42 @@
+<% if !logged_in? %>
+  <div class="row">
+   <div class="slider">
+      <ul class="slides">
+        <li>
+          <%= image_tag('media1.jpeg') %>
+        </li>
+        <li>
+          <%= image_tag('media2.jpeg') %>
+        </li>
+        <li>
+          <%= image_tag('media3.jpeg') %>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="row">
+    <div class="card-panel white">
+      <span class="black-text">
+        ﻿We serve the finest, freshest ice cream, cakes, smoothies and shakes using
+        only the highest quality ingredients, and of course, our signature process
+        of preparing your custom ice cream creation on a frozen granite stone.
+        <br><br>
+        How good is our ice cream? Well, let's just say that on a scale of 1 to 10,
+        we're somewhere around an 11.5. But we’re about more than just serving up
+        amazing ice cream. We like to think we’re really in the business of making
+        people happy...
+      </span>
+    </div>
+  </div>
+  <div class="row">
+    <h2>Nearby Stores</h2>
+    <%= render partial: "home/table", locals: {model_name: 'home',
+                                                  list: Store.active.alphabetical.where(city: 'Pittsburgh')} %>
+  </div>
+<% elsif current_user.role? (:admin) %>
+  <%= render partial: 'admin_dashboard' %>
+<% elsif current_user.role? (:manager) %>
+  <%= render partial: 'manager_dashboard' %>
+<% else %>
+  <%= render partial: 'employee_dashboard' %>
+<% end %>

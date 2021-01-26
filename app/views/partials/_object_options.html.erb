@@ -1,0 +1,81 @@
+<% opt = "#{object.respond_to?(:name) ? object.name : model_name.capitalize }" %>
+
+<div class="col s12">
+  <div class="form-actions">
+    <% if can? :index, eval(model_name.capitalize) %>
+      <% if model_name == 'store' %>
+        <% if current_user.role? :admin %>
+          <%= link_to(stores_path, class: 'waves-effect waves-light btn') do %>
+            <%= "Display All #{model_name.gsub('_', ' ').pluralize}" %>
+          <% end %>
+        <% end %>
+      <% else %>
+        <%= link_to(eval("#{model_name.pluralize}_path"),
+                    class: 'waves-effect waves-light btn') do %>
+          <%= "Display All #{model_name.gsub('_', ' ').pluralize}" %>
+        <% end %>
+      <% end %>
+      &nbsp;&nbsp;
+    <% end %>
+
+    <% if can? :edit, eval(model_name.capitalize) %>
+      <% if controller.respond_to?(:edit) %>
+        <% unless model_name == 'employee' && (current_user.role? :manager) && (object.role? :manager) && (object.id != current_user.id) %>
+          <%= link_to(eval("edit_#{model_name}_path(object)"),
+                      class: 'waves-effect waves-light btn') do %>
+              <%= "Edit" %>
+          <% end %>
+          &nbsp;&nbsp;
+        <% end %>
+      <% end %>
+    <% end %>
+
+    <% if model_name == 'employee' || model_name == 'store' %>
+      <% if current_user.role? :admin %>
+        <%= link_to(eval("new_#{model_name}_payroll_path(#{model_name}_id: @#{model_name}.id)"),
+                  class: 'waves-effect waves-light btn') do %>
+          <%= "Generate Payroll" %>
+        <% end %>
+        &nbsp;&nbsp;
+      <% end %>
+
+      <% if can? :create, Assignment %>
+        <% if object.active %>
+          <%= link_to "Add Assignment",
+                      eval("new_assignment_path(#{model_name}_id: @#{model_name}.id)"),
+                      class: 'waves-effect waves-light btn' %>
+          &nbsp;&nbsp;
+        <% end %>
+      <% end %>
+    <% end %>
+
+    <% if (can? :create, Shift) && (model_name == 'employee') && (object.active) && !(object.current_assignment.nil?) %>
+      <%= link_to "Add Shift",
+                  eval("new_shift_path(assignment_id: @#{model_name}.current_assignment.id)"),
+                  class: 'waves-effect waves-light btn' %>
+        &nbsp;&nbsp;
+    <% end %>
+
+    <% if (can? :create, Shift) && model_name == 'assignment' && object.end_date.nil? %>
+      <%= link_to "Add Shift",
+                  eval("new_shift_path(#{model_name}_id: @#{model_name}.id)"),
+                  class: 'waves-effect waves-light btn' %>
+      &nbsp;&nbsp;
+    <% end %>
+
+    <% if (model_name == 'employee') && (!current_user.role? :admin) && (current_user.id == object.id) %>
+      <%= link_to(show_employee_payroll_path(current_user.id), class: 'waves-effect waves-light btn') do %>
+        <%= "Generate Pay Report" %>
+      <% end %>
+      &nbsp;&nbsp;
+    <% end %>
+
+    <% if (can? :destroy, eval(model_name.capitalize)) && controller.respond_to?(:destroy) %>
+      <%= link_to(eval("#{model_name}_path(object)"), method: 'delete',
+          data: {confirm: "Are you sure you want to permanently delete #{opt}"},
+          class: 'waves-effect waves-light btn btn-alert') do %>
+          <%= "Delete #{opt}" %>
+      <% end %>
+    <% end %>
+  </div>
+</div>

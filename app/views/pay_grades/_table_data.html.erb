@@ -1,0 +1,13 @@
+<tr>
+  <td><%= obj.level %></td>
+  <% if obj.active && !obj.pay_grade_rates.current.empty? %>
+    <td class="align_center"><%= number_to_currency(obj.pay_grade_rates.current.last.rate) %></td>
+  <% elsif obj.active && obj.pay_grade_rates.current.empty? %>
+    <td class="align_center">n/a</td>
+  <% end %>
+  <td class="align_center">
+    <%= link_to edit_pay_grade_path(obj) do %>
+        <i class="material-icons">edit</i>
+    <% end %>
+  </td>
+</tr>

@@ -1,0 +1,40 @@
+<div class="row">
+  <% unless current_user.role? :employee %>
+    <div class="col s12">
+  <% else %>
+    <div class="col s8">
+  <% end %>
+    <% if current_user.role? :admin %>
+      <ul class="tabs">
+        <li class="tab col s3"><a class="active" href="#current">Current Assignments</a></li>
+        <li class="tab col s3"><a href="#past">Past Assignments</a></li>
+      </ul>
+      <div id="current">
+        <%= render partial: "partials/index_structure", locals: {model_name: 'assignment',
+                                                                 object: @assignment,
+                                                                 title: 'Current Assignments',
+                                                                 list: @current_assignments,
+                                                                 list_name: 'current assignments',
+                                                                 param: 'curr_page',
+                                                                 button: true} %>
+      </div>
+      <div id="past">
+        <%= render partial: "partials/index_structure", locals: {model_name: 'assignment',
+                                                                 object: @assignment,
+                                                                 title: 'Past Assignments',
+                                                                 list: @past_assignments,
+                                                                 list_name: 'past assignments',
+                                                                 param: 'past_page',
+                                                                 button: true} %>
+      </div>
+    <% else %>
+      <%= render partial: "partials/index_structure", locals: {model_name: 'assignment',
+                                                               object: @assignment,
+                                                               title: "Assignments",
+                                                               list: @assignments,
+                                                               list_name: 'assignments',
+                                                               param: 'curr_page',
+                                                               button: false} %>
+    <% end %>
+  </div>
+</div>

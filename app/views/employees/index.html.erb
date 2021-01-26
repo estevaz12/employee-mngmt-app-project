@@ -1,0 +1,40 @@
+<div class="row">
+  <div class="col s12">
+    <% if current_user.role? :admin %>
+      <ul class="tabs">
+        <li class="tab col s3"><a class="active" href="#active">Active Employees</a></li>
+        <li class="tab col s3"><a href="#inactive">Inactive Employees</a></li>
+        <div class="col s2"></div>
+        <div class="col s4">
+          <%= render partial: 'partials/search_bar' %>
+        </div>
+      </ul>
+      <div id="active">
+        <%= render partial: "partials/index_structure", locals: {model_name: "employee",
+                                                                 object: @employee,
+                                                                 title: "Active Employees",
+                                                                 list: @active_employees,
+                                                                 list_name: "active employees",
+                                                                 param: "emp_page",
+                                                                 button: true} %>
+      </div>
+      <div id="inactive">
+        <%= render partial: "partials/index_structure", locals: {model_name: "employee",
+                                                                 object: @employee,
+                                                                 title: "Inactive Employees",
+                                                                 list: @inactive_employees,
+                                                                 list_name: "inactive employees",
+                                                                 param: "inac_emp_page",
+                                                                 button: true} %>
+      </div>
+    <% else %>
+      <%= render partial: "partials/index_structure", locals: {model_name: "employee",
+                                                               object: @employee,
+                                                               title: "Employees",
+                                                               list: @my_employees,
+                                                               list_name: "employees",
+                                                               param: "emp_page",
+                                                               button: false} %>
+    <% end %>
+  </div>
+</div>

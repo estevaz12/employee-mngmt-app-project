@@ -1,0 +1,7 @@
+<% unless current_user.role? :admin %>
+  <%= render :partial => "previous_assignments" %>
+  <%= render :partial => "past_shifts" %>
+<% end %>
+<% unless current_user.id == @employee.id %>
+  <%= render partial: "missed_shifts" %>
+<% end %>

@@ -1,0 +1,27 @@
+<% if list == @active_stores %>
+  <% table_heads = %w(Current\ Assignments Under\ Aged Payroll\ (for\ past\ 2\ weeks) Missed\ Shifts Options) %>
+  <table class="striped highlight">
+    <thead>
+      <th>Name</th>
+      <th>Phone</th>
+      <% for th in table_heads %>
+        <th class="align_center"><%= th %></th>
+      <% end %>
+    </thead>
+    <% for i in list %>
+      <%= render partial: "#{model_name.pluralize}/table_data",
+                 locals: {obj: i, list: list}%>
+    <% end %>
+  </table>
+<% else %>
+  <table class="striped highlight col s8">
+    <thead>
+      <th>Name</th>
+      <th class="align_center">Options </th>
+    </thead>
+    <% for i in list %>
+      <%= render partial: "#{model_name.pluralize}/table_data",
+                 locals: {obj: i, list: list}%>
+    <% end %>
+  </table>
+<% end %>

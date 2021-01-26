@@ -1,0 +1,25 @@
+<% table_heads = %w(Date Employee Start\ Time End\ Time Duration Jobs\ Done) %>
+
+<table class="striped highlight" id="finished_shifts">
+  <thead>
+    <% for th in table_heads %>
+      <% if th == 'Duration' || th == 'Jobs Done' %>
+        <th class="align_center"><%= th %></th>
+      <% else %>
+        <th><%= th %></th>
+      <% end %>
+    <% end %>
+  </thead>
+  <% for s in @finished_shifts %>
+    <%= link_to home_manager_path(s) do %>
+      <tr>
+    <% end %>
+      <td><%= link_to s.date.strftime("%-m/%-d/%y"), home_manager_path(s) %></td>
+      <td><%= link_to "#{s.employee.name}", employee_path(s.employee) %></td>
+      <td><%= s.start_time.strftime("%H:%M") %></td>
+      <td><%= s.end_time.strftime("%H:%M") %></td>
+      <td class="align_center"><%= s.duration %></td>
+      <td class="align_center"><%= s.jobs.count %></td>
+    </tr>
+  <% end %>
+</table>

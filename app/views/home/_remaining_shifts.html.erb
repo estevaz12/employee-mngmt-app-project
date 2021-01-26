@@ -1,0 +1,21 @@
+<% table_heads = %w(Date Start\ Time End\ Time Duration) %>
+
+<table class="striped highlight" id="finished_shifts">
+  <thead>
+    <% for th in table_heads %>
+      <% if th == 'Duration' %>
+        <th class="align_center"><%= th %></th>
+      <% else %>
+        <th><%= th %></th>
+      <% end %>
+    <% end %>
+  </thead>
+  <% for s in @remaining_shifts %>
+    <tr>
+      <td><%= link_to s.date.strftime("%-m/%-d/%y"), shift_path(s) %></td>
+      <td><%= s.start_time.strftime("%H:%M") %></td>
+      <td><%= s.end_time.strftime("%H:%M") %></td>
+      <td class="align_center"><%= s.duration %></td>
+    </tr>
+  <% end %>
+</table>

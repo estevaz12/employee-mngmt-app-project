@@ -1,0 +1,29 @@
+<% if (current_user.role? :manager) && !current_page?(shifts_path) && !current_page?(jobs_path) %>
+  <div class="row">
+    <div class="col s8">
+      <h4 id="manager"><%= title %></h4>
+    </div>
+    <% if (current_page?(employees_path)) %>
+      <div class="col s4">
+        <%= render partial: 'partials/search_bar' %>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <h4><%= title %></h4>
+<% end %>
+
+<% if list.empty? %>
+  <h5>There are no <%= "#{list_name.gsub('_', ' ')}" %> at this time.</h5>
+<% else %>
+  <div class="row">
+    <div class="col s12">
+      <%= render partial: "#{model_name.pluralize}/table",
+                 locals: {model_name: model_name, list: list} %>
+    </div>
+  </div>
+  <%= will_paginate list, param_name: "#{param}", previous_label: "Previous&nbsp;",
+      next_label: "&nbsp;Next" %>
+<% end %><br>
+
+<%= render partial: "partials/add_button", locals: {model_name: model_name} if button %>

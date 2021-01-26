@@ -1,0 +1,12 @@
+<table class="striped highlight">
+  <thead>
+    <th>Level</th>
+    <% if list == @active_pay_grades %>
+      <th class="align_center">Current Rate</th>
+    <% end %>
+    <th class="align_center">Options</th>
+  </thead>
+  <% for i in list %>
+    <%= render partial: "#{model_name.pluralize}/table_data", locals: {obj: i}%>
+  <% end %>
+</table>

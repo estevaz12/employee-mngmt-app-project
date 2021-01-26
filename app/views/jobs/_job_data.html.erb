@@ -1,0 +1,21 @@
+<div class="card">
+  <div class="card-content">
+    <h4><%= best_in_place @job, :name, as: :input %></h4><br>
+
+    <b>Description&nbsp;&nbsp;</b><br>
+      <%= @job.description %>
+      <br /><br />
+
+    <% if @job.active %>
+      <b>Active&nbsp;&nbsp;</b>
+      <br>
+      Yes
+      <br><br>
+    <% else %>
+      <b>Active</b>
+      <br>
+      No
+    <% end %>
+
+  </div>
+</div>

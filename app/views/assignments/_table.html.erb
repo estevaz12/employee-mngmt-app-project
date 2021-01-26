@@ -1,0 +1,19 @@
+<% if list == @past_assignments || (current_user.role? :employee) %>
+  <% table_heads = %w(Dates Employee Store) %>
+<% else %>
+  <% table_heads = %w(Start\ Date Employee Store) %>
+<% end %>
+
+<table class="striped highlight">
+  <thead>
+    <% for th in table_heads %>
+      <th><%= th %></th>
+    <% end %>
+    <% unless current_user.role? :employee %>
+      <th class="align_center">Options</th>
+    <% end %>
+  </thead>
+  <% for i in list %>
+    <%= render partial: "#{model_name.pluralize}/table_data", locals: {obj: i}%>
+  <% end %>
+</table>

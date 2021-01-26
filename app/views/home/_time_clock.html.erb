@@ -1,0 +1,58 @@
+<% unless @remaining_shifts.empty? %>
+  <div class="row">
+    <div class="col s4">
+      <div class="card">
+        <div class="card-content">
+          <% if @remaining_shifts.first.status == 'pending' %>
+            <span class="card-title">Start your upcoming shift</span><br>
+          <% else %>
+            <span class="card-title">End your current shift</span><br>
+          <% end %>
+          <div class="row" id="pending-shift">
+            <div class="col">
+              <b>Date&nbsp;&nbsp;</b><br>
+                <%= @remaining_shifts.first.date.strftime("%-m/%-d/%y") %>
+                <br><br>
+
+              <b>Time&nbsp;&nbsp;</b><br>
+                <%= @remaining_shifts.first.start_time.strftime("%H:%M") %>&nbsp;-&nbsp;
+                <%= @remaining_shifts.first.end_time.strftime("%H:%M") %>
+                <br><br>
+
+              <b>Duration&nbsp;&nbsp;</b><br>
+                <%= @remaining_shifts.first.duration %>&nbsp;&nbsp;hours
+                <br /><br />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% if @remaining_shifts.first.status == 'pending' %>
+      <div class="col s4" id="clock-in-btn">
+        <%= link_to 'Start', start_shift_path(@remaining_shifts.first), method: :patch,
+            class: "btn-floating btn-large waves-effect waves-light" %>
+      </div>
+    <% elsif @remaining_shifts.first.status == 'started' %>
+      <div class="col s4" id="clock-in-btn">
+        <%= link_to 'End', end_shift_path(@remaining_shifts.first), method: :patch,
+            class: "btn-floating btn-large waves-effect waves-light" %>
+      </div>
+    <% end %>
+    <div class="col s4">
+      <div class="card">
+        <div class="card-content">
+          <span class="card-title">Remaining Shifts for Today</span>
+          <% if @remaining_shifts.empty? %>
+            <h5>There are no upcoming shifts at this time.</h5>
+          <% else %>
+            <div class="row">
+              <div class="col s12">
+                <%= render partial: "remaining_shifts" %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

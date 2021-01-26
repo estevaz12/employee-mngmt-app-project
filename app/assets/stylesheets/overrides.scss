@@ -1,0 +1,361 @@
+html {
+  font-family: 'Lato', sans-serif;
+}
+
+// TOPBAR
+
+#topbar h2 {
+  font-family: 'Lobster', cursive;
+  margin: 1.424rem 0;
+  padding-left: 1rem;
+  text-shadow: 2px 2px #0277bd;
+}
+
+#topbar a {
+  color: #fff;
+}
+
+#topbar {
+  background-color: #039be5;
+  color: #fff;
+  padding: 10px 0;
+  margin: 0;
+}
+
+// NAVBAR
+
+#nav {
+  margin-bottom: 1.5rem;
+  background-color: #0277bd;
+}
+
+#nav a {
+  font-size: 19px;
+}
+
+// FOOTER
+
+#footer {
+  background-color: #039be5;
+  color: #cdcdcd;
+  padding: 10px 0;
+  line-height: 2rem;
+  border-top: 5px solid #0277bd;
+}
+
+#footer a {
+  color: #fff;
+}
+
+#footer a:hover {
+  text-decoration: underline;
+}
+
+// TABLES
+
+table.striped > tbody > tr:nth-child(odd) {
+  background-color: #fff;
+}
+
+table.striped > tbody > tr:nth-child(even) {
+  background-color: #e1f5fe;
+}
+
+table.highlight > tbody > tr:hover {
+  background-color: #b3e5fc;
+}
+
+td.align_right {
+  text-align: right;
+}
+
+td.align_center {
+  text-align: center;
+}
+
+th.align_right {
+  text-align: right;
+}
+
+th.align_center {
+  text-align: center;
+}
+
+thead {
+    border-bottom: 1px solid #d0d0d0;
+}
+
+// DASHBOARDS
+
+.card-content.dashboard {
+  color: black;
+}
+
+h4#emp-dashboard {
+  margin-bottom: 20px;
+}
+
+div#pending-shift.row {
+  margin-bottom: 0;
+}
+
+.btn-floating.btn-large {
+  width: 300px;
+  height: 300px;
+  padding: 125px 0;
+  background-color: #0277bd;
+  font-size: 50px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#clock-in-btn {
+  padding-top: 25px;
+  padding-left: 2%;
+}
+
+#todays-shifts {
+  margin-bottom: 5px;
+}
+
+#manager-dash {
+  margin-bottom: 0px;
+}
+
+// GUEST PAGES
+
+#about.card-title {
+  font-size: 75px;
+  color: #29b6f6;
+  text-shadow: 1px 1px #454545;
+}
+
+div.card-panel.white, #about.card-content, p#contact {
+  font-size: 16px;
+}
+
+#contact.card-title, #privacy.card-title {
+  font-size: 3.56rem;
+}
+
+#contact td {
+  font-size: 16px;
+}
+
+#contact tr {
+  border-bottom: 0px;
+}
+
+#contact.card-image {
+  max-width: 33%;
+  height: auto;
+}
+
+p#privacy {
+  font-size: 16px;
+}
+
+// BUTTONS
+.btn {
+  background-color: #0277bd;
+  color: #fff;
+  margin-bottom: 20px;
+}
+
+.btn:hover {
+  background-color: #039be5;
+  color: #fff;
+}
+
+.btn-alert {
+  background-color: #e53935;
+}
+
+#index_add {
+  margin-left: 3px;
+}
+
+.inside_form {
+  margin-top: 20px;
+  margin-bottom: 0px;
+}
+
+// ICONS
+#destroy {
+  color: #e53935;
+}
+
+.under_age {
+  color: #ef6c00;
+  position: relative;
+  top: 5px;
+}
+
+// FORMS
+.switch label input[type=checkbox]:checked + .lever {
+  background-color: #039be5;
+}
+
+.switch label input[type=checkbox]:checked + .lever::after {
+  background-color: #0277bd;
+}
+
+.datepicker-date-display {
+  background-color: #039be5;
+  color: #fff;
+}
+
+.datepicker-date-display .year-text {
+  color: #fff;
+}
+
+.datepicker-table td.is-today {
+    color: #039be5;
+}
+
+.datepicker-table td.is-selected {
+    background-color: #cdcdcd;
+}
+
+.datepicker-cancel, .datepicker-clear, .datepicker-today, .datepicker-done, .timepicker-close {
+    color: #039be5;
+}
+
+.timepicker-digital-display {
+  background-color: #039be5;
+}
+
+#form-template {
+  padding-left: 20px;
+}
+
+.job_checkbox {
+  color: #000;
+  margin: 2px 0;
+}
+
+[type="checkbox"] + span:not(.lever) {
+  font-size: 16px;
+}
+
+[type="checkbox"].filled-in:checked + span:not(.lever):after {
+  background-color: #039be5;
+  border: 2px solid #039be5;
+}
+
+// TABS
+.tabs .tab a.active {
+  color: #0277bd;
+}
+
+.tabs .tab a:hover {
+  color: #039be5;
+}
+
+.tabs .tab a {
+  color: #bdbdbd;
+}
+
+.tabs .indicator {
+  position: absolute;
+  bottom: 0;
+  height: 2px;
+  background-color: #039be5;
+  will-change: left, right;
+}
+
+.tabs .tab a:focus, .tabs .tab a:focus.active {
+    background-color: transparent;
+}
+
+.tabs-content.carousel {
+  height: 900px;
+}
+
+.tabs-content.carousel .carousel-item {
+  width: 100%;
+  height: 100%;
+}
+
+// FLASH MESSAGES
+
+.alert-box {
+  display: block;
+  font-size: 1rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 1.25rem;
+  padding: 0.8rem;
+  position: relative;
+  transition: opacity 300ms ease-out;
+  background-color: #008CBA;
+  border-color: #0078a0;
+  color: #FFFFFF; }
+  .alert-box .close {
+    right: 0.25rem;
+    background: inherit;
+    color: #333333;
+    font-size: 1.375rem;
+    line-height: .9;
+    margin-top: -0.6875rem;
+    opacity: 0.3;
+    padding: 0 6px 4px;
+    position: absolute;
+    top: 50%; }
+    .alert-box .close:hover, .alert-box .close:focus {
+      opacity: 0.5; }
+  .alert-box.radius {
+    border-radius: 10px; }
+  .alert-box.round {
+    border-radius: 1000px; }
+  .alert-box.success {
+    background-color: #029e0e;
+    // border-color: #a5d6a7;
+    color: #fff; }
+  .alert-box.alert {
+    background-color: #f04124;
+    border-color: #de2d0f;
+    color: #FFFFFF; }
+  .alert-box.secondary {
+    background-color: #e7e7e7;
+    border-color: #c7c7c7;
+    color: #4f4f4f; }
+  .alert-box.warning {
+    background-color: #e8781c;
+    // border-color: #ffcc80;
+    color: #fff; }
+  .alert-box.info {
+    background-color: #a0d3e8;
+    border-color: #74bfdd;
+    color: #4f4f4f; }
+  .alert-box.alert-close {
+    opacity: 0; }
+
+// MISC
+h2, #about.card-title, #contact.card-title, #privacy.card-title {
+  font-family: 'Lobster', cursive;
+}
+
+h2.dashboard, h4, h5, nav, span.card-title {
+  font-family: 'Barlow', sans-serif;
+}
+
+#shift_show_side {
+  margin-bottom: 0px;
+}
+
+#pay_grades {
+  padding-right: 1.25rem;
+}
+
+#pay_rates {
+  margin-top: 47px;
+}
+
+#pay_rates h4, h4#manager {
+  margin-top: 0;
+}
+
+#completed-jobs {
+  margin-bottom: 20px;
+}

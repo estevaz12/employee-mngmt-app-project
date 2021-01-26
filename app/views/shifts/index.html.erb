@@ -1,0 +1,26 @@
+<div class="row">
+  <div class="col s12">
+    <ul class="tabs">
+      <li class="tab col s3"><a class="active" href="#upcoming">Upcoming Shifts</a></li>
+      <li class="tab col s3"><a href="#past">Past Shifts</a></li>
+    </ul>
+    <div id="upcoming">
+      <%= render partial: "partials/index_structure", locals: {model_name: "shift",
+                                                               object: @shift,
+                                                               title: "Upcoming Shifts",
+                                                               list: @upcoming_shifts,
+                                                               list_name: "upcoming shifts",
+                                                               param: 'upcoming_page',
+                                                               button: true} %>
+    </div>
+    <div id="past">
+      <%= render partial: "partials/index_structure", locals: {model_name: "shift",
+                                                               object: @shift,
+                                                               title: "Past Shifts",
+                                                               list: @past_shifts,
+                                                               list_name: "past shifts",
+                                                               param: 'past_page',
+                                                               button: true} %>
+    </div>
+  </div>
+</div>

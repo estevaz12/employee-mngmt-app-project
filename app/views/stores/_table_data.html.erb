@@ -1,0 +1,23 @@
+<tr>
+  <td><%= link_to "#{obj.name}", store_path(obj) %></td>
+  <% if list == @active_stores %>
+    <td><%= number_to_phone obj.phone %></td>
+    <td class="align_center"><%= obj.assignments.current.count %></td>
+    <td class="align_center">
+      <%= under_aged(obj) %>
+    </td>
+    <td class="align_center"><%= number_to_currency(payroll(obj, 'two_week')) %></td>
+    <td class="align_center">
+      <%= missed_shifts(obj) %>%
+    </td>
+  <% end %>
+  <td class="align_center">
+    <%= link_to new_store_payroll_path(store_id: obj.id) do %>
+      <i class="material-icons">attach_money</i>
+    <% end %>
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    <%= link_to edit_store_path(obj) do %>
+        <i class="material-icons">edit</i>
+    <% end %>
+  </td>
+</tr>

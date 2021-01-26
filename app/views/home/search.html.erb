@@ -1,0 +1,17 @@
+<h4>Search result for term <em>'<%= @query %>'</em> resulted in <%= pluralize(@total_hits, 'hit') %></h4>
+<p class="supertiny">&nbsp;</p>
+
+<% unless @employees.empty? %>
+  <h5><strong>Employees matching term <em>'<%= @query %>'</em></strong></h5>
+  <div class="row">
+    <div class="col s8">
+      <%= render partial: 'search_table', locals: {list: @employees} %>
+    </div>
+  </div>
+  <p class="smtext">&nbsp;</p>
+  <%= link_to(employees_path, class: 'waves-effect waves-light btn') do %>
+    <%= "Display All Employees" %>
+  <% end %>
+<% else %>
+  <%= link_to 'Back', :back %>
+<% end %>

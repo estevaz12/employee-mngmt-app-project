@@ -1,0 +1,27 @@
+<div class="card">
+  <div class="card-content">
+    <span class="card-title"><b>Missed Shifts</b></span>
+    <% if !@missed_shifts.empty? %>
+      <table class="striped highlight">
+        <thead>
+          <th>Employee</th>
+          <th>Date</th>
+          <th>Start</th>
+          <th>End</th>
+        </thead>
+        <% for shift in @missed_shifts %>
+          <tr>
+            <td><%= link_to shift.employee.name, employee_path(shift.employee) %></td>
+            <td><%= link_to shift.date.strftime("%-m/%-d/%y"), shift_path(shift) %></td>
+            <td><%= shift.start_time.strftime("%H:%M") %></td>
+            <td><%= shift.end_time.strftime("%H:%M") %></td>
+          </tr>
+        <% end %>
+      </table><br>
+      <%= will_paginate @missed_shifts, param_name: "mshifts_page",
+          previous_label: "Previous&nbsp;", next_label: "&nbsp;Next" %>
+    <% else %>
+      <p>This employee has no missed shifts at this time.</p>
+    <% end %>
+  </div>
+</div>

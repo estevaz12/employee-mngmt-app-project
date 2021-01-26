@@ -1,0 +1,33 @@
+<div class="row">
+  <div class="col s7" id="pay_grades">
+    <ul class="tabs">
+      <li class="tab col s5"><a class="active" href="#active">Active Pay Grades</a></li>
+      <li class="tab col s5"><a href="#inactive">Inactive Pay Grades</a></li>
+    </ul>
+    <div id="active">
+      <%= render partial: "partials/index_structure", locals: {model_name: "pay_grade",
+                                                               object: @pay_grade,
+                                                               title: "Active Pay Grades",
+                                                               list: @active_pay_grades,
+                                                               list_name: "active pay_grades",
+                                                               param: 'active_page',
+                                                               button: true} %>
+    </div>
+    <div id="inactive">
+      <%= render partial: "partials/index_structure", locals: {model_name: "pay_grade",
+                                                               object: @pay_grade,
+                                                               title: "Inactive Pay Grades",
+                                                               list: @inactive_pay_grades,
+                                                               list_name: "inactive pay_grades",
+                                                               param: 'inactive_page',
+                                                               button: true} %>
+    </div>
+  </div>
+  <div class="col s5">
+    <div class="card " id="pay_rates">
+      <div class="card-content">
+        <%= render partial: 'pay_grade_rates/index' %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,45 @@
+<tr>
+  <td><%= link_to "#{obj.last_name}, #{obj.first_name}", employee_path(obj) %>
+      &nbsp;&nbsp;&nbsp;&nbsp;
+      <% if !obj.over_18? %>
+        <i class="material-icons under_age">error_outline</i>
+      <% end %>
+  </td>
+  <td><%= number_to_phone obj.phone %></td>
+  <% if list != @inactive_employees %>
+    <% if obj.current_assignment.nil? %>
+      <td>n/a</td>
+    <% else %>
+      <td><%= link_to "#{obj.current_assignment.store.name}", store_path(obj.current_assignment.store) %></td>
+    <% end %>
+    <td><%= "#{obj.role.capitalize}" %></td>
+  <% end %>
+  <td class="align_center">
+    <% if current_user.role? :admin %>
+      <%= link_to new_employee_payroll_path(employee_id: obj.id) do %>
+        <i class="material-icons">attach_money</i>
+      <% end %>
+      &nbsp;&nbsp;&nbsp;&nbsp;
+    <% end %>
+    <% if obj.active && obj.role != 'admin' && !obj.current_assignment.nil?%>
+      <%= link_to new_shift_path(assignment_id: obj.current_assignment.id) do %>
+        <i class="material-icons">schedule</i>
+      <% end %>
+    <% end %>
+    <% unless (current_user.role? :manager) && (obj.role? :manager) && (obj.id != current_user.id) %>
+      &nbsp;&nbsp;&nbsp;&nbsp;
+      <%= link_to edit_employee_path(obj) do %>
+          <i class="material-icons">edit</i>
+      <% end %>
+    <% end %>
+    <% if can? :delete, Employee %>
+      <% if obj.active %>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <%= link_to(employee_path(obj), method: :delete,
+                    data: { confirm: 'Are you sure you wish to delete this employee?' }) do %>
+            <i class="material-icons" id="destroy">delete</i>
+        <% end %>
+      <% end %>
+    <% end %>
+  </td>
+</tr>

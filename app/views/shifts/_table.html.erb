@@ -1,0 +1,26 @@
+<% if list == @past_shifts %>
+  <% table_heads = %w(Date Employee Store Start\ Time End\ Time Duration Jobs\ Done) %>
+<% else %>
+  <% table_heads = %w(Date Employee Store Start\ Time End\ Time Duration) %>
+<% end %>
+
+<table class="striped highlight">
+  <thead>
+    <% for th in table_heads %>
+      <% if th == 'Duration' || th == 'Jobs Done' %>
+        <th class="align_center"><%= th %></th>
+      <% else %>
+        <% unless (current_user.role? :employee) && th == 'Employee'  %>
+          <th><%= th %></th>
+        <% end %>
+      <% end %>
+    <% end %>
+    <% if (can? :manage, Shift) %>
+      <th class="align_center">Options</th>
+    <% end %>
+  </thead>
+  <% for i in list %>
+    <%= render partial: "#{model_name.pluralize}/table_data", locals: {obj: i,
+                                                                       list: list}%>
+  <% end %>
+</table>

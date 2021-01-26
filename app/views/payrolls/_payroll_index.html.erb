@@ -1,0 +1,46 @@
+<div class="col s6">
+  <div class="card">
+    <div class="card-content">
+      <span class="card-title">For <%= model_name.capitalize %></span>
+
+      <%= form_with(url: eval(":#{model_name}_payroll"), method: 'get', local: true) do %>
+        <div class="row">
+          <div class="form-inputs">
+            <div class="input-field col s9">
+              <%= select_tag "#{model_name}_id", options_from_collection_for_select(eval(model_name.capitalize).all.alphabetical, 'id', 'name'), include_blank: true %>
+              <%= label_tag eval(":#{model_name}"), "#{model_name.capitalize}" %>
+            </div>
+            <div class="col s12">
+              <span>Generate for the past</span>
+            </div>
+            <div class="input-field col s2">
+              <%= number_field_tag "quantity", nil, in: 1..31, class: 'center-align' %>
+            </div>
+            <div class="input-field col s7">
+              <%= select_tag 'date_range', options_for_select(PayrollsHelper::DATE_RANGES, 'weeks') %>
+            </div>
+            <div class="col s12">
+              <span>Or provide specific dates</span>
+            </div>
+            <div class="input-field col s4">
+              <%= text_field_tag 'start_date', nil, class: 'datepicker' %>
+              <%= label_tag :start_date, 'Start date' %>
+            </div>
+            <div class="col s1"></div>
+            <div class="input-field col s4">
+              <%= text_field_tag 'end_date', Date.current.strftime("%b %d, %Y"), class: 'datepicker' %>
+              <%= label_tag :end_date, 'End date' %>
+            </div>
+          </div>
+          <div class="form-actions col s9">
+            <% if model_name == 'employee' %>
+              <%= submit_tag 'Generate Pay Report', class: 'btn inside_form' %>
+            <% else %>
+              <%= submit_tag 'Generate Payroll Report', class: 'btn inside_form' %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

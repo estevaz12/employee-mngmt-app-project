@@ -1,0 +1,26 @@
+<div class="row">
+  <div class="col s12">
+    <ul class="tabs">
+      <li class="tab col s3"><a class="active" href="#active">Active Stores</a></li>
+      <li class="tab col s3"><a href="#inactive">Inactive Stores</a></li>
+    </ul>
+    <div id="active">
+      <%= render partial: "partials/index_structure", locals: {model_name: "store",
+                                                               object: @store,
+                                                               title: "Active Stores",
+                                                               list: @active_stores,
+                                                               list_name: "active stores",
+                                                               param: 'ac_stores_page',
+                                                               button: true} %>
+    </div>
+    <div id="inactive">
+      <%= render partial: "partials/index_structure", locals: {model_name: "store",
+                                                               object: @store,
+                                                               title: "Inactive Stores",
+                                                               list: @inactive_stores,
+                                                               list_name: "inactive stores",
+                                                               param: 'inac_stores_page',
+                                                               button: true} %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,2 @@
+module PayGradeRatesHelper
+end

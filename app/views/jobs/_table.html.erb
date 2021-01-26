@@ -1,0 +1,11 @@
+<table class="striped highlight">
+  <thead>
+    <th>Name</th>
+    <% if can? :manage, Job %>
+      <th class="align_center">Options</th>
+    <% end %>
+  </thead>
+  <% for i in list %>
+    <%= render partial: "#{model_name.pluralize}/table_data", locals: {obj: i}%>
+  <% end %>
+</table>

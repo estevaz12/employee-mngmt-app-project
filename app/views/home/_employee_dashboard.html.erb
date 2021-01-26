@@ -1,0 +1,69 @@
+<h2 class="dashboard">Welcome, <%= Employee.find(current_user.id).proper_name %></h2>
+<br>
+<%= render partial: 'time_clock' %>
+<div class="row">
+  <div class="col s4">
+    <%= link_to employee_path(session[:user_id]) do %>
+      <div class="card">
+        <div class="card-content dashboard">
+          <i class="medium material-icons col s12 center-align">account_circle</i>
+          <span class="card-title center-align">Personal Information</span>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <div class="col s4">
+    <%= link_to shifts_path do %>
+      <div class="card">
+        <div class="card-content dashboard">
+          <i class="medium material-icons col s12 center-align">schedule</i>
+          <span class="card-title center-align">Shifts</span>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <div class="col s4">
+    <%= link_to show_employee_payroll_path(current_user.id) do %>
+      <div class="card">
+        <div class="card-content dashboard">
+          <i class="medium material-icons col s12 center-align">attach_money</i>
+          <span class="card-title center-align">Pay Report</span>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+<br>
+<div class="row">
+  <h4 id="emp-dashboard">Upcoming and Recent Shifts</h4>
+  <div class="col s12">
+    <ul class="tabs">
+      <li class="tab col s3"><a class="active" href="#upcoming">Upcoming Shifts</a></li>
+      <li class="tab col s3"><a href="#past">Recent Shifts</a></li>
+    </ul>
+    <div id="upcoming">
+      <% if @upcoming_shifts.empty? %>
+        <h5>There are no upcoming shifts at this time.</h5>
+      <% else %>
+        <div class="row">
+          <div class="col s12">
+            <%= render partial: "shifts/table",
+                       locals: {model_name: 'shifts', list: @upcoming_shifts} %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    <div id="past">
+      <% if @past_shifts.empty? %>
+        <h5>There are no past shifts at this time.</h5>
+      <% else %>
+        <div class="row">
+          <div class="col s12">
+            <%= render partial: "shifts/table",
+                       locals: {model_name: 'shifts', list: @past_shifts} %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,7 @@
+<% if @shift.status == 'finished' %>
+  <% unless current_user.role? :employee %>
+    <%= render partial: 'shift_jobs_form' %>
+  <% else %>
+    <%= render partial: 'shift_jobs' %>
+  <% end %>
+<% end %>
